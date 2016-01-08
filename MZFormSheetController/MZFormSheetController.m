@@ -734,6 +734,8 @@ static BOOL MZFromSheetControllerIsViewControllerBasedStatusBarAppearance(void) 
 
 - (void)willShowKeyboardNotification:(NSNotification *)notification
 {
+    if (self.movementWhenKeyboardAppears == MZFormSheetWhenKeyboardAppearsDoNothing) return;
+
     CGRect screenRect = [[notification userInfo][UIKeyboardFrameEndUserInfoKey] CGRectValue];
     
     if (UIInterfaceOrientationIsLandscape([UIApplication sharedApplication].statusBarOrientation) && MZSystemVersionLessThan_iOS8()) {
@@ -761,6 +763,8 @@ static BOOL MZFromSheetControllerIsViewControllerBasedStatusBarAppearance(void) 
 
 - (void)willHideKeyboardNotification:(NSNotification *)notification
 {
+    if (self.movementWhenKeyboardAppears == MZFormSheetWhenKeyboardAppearsDoNothing) return;
+
     self.keyboardVisible = NO;
     self.screenFrameWhenKeyboardVisible = nil;
     
@@ -986,3 +990,4 @@ static BOOL MZFromSheetControllerIsViewControllerBasedStatusBarAppearance(void) 
 
 
 @end
+
